@@ -2,108 +2,367 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Scraping — Rondônia Ao Vivo</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <title>Notícias Rondônia Ao Vivo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fique por dentro das últimas notícias de Rondônia">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --primary: #1a73e8;
+      --primary-dark: #0d47a1;
+      --secondary: #e63946;
+      --dark: #1d3557;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --gray-light: #e9ecef;
+      --white: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.15);
+      --border-radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
       margin: 0;
-      padding: 20px;
-      background: #f0f2f5;
-      font-family: "Segoe UI", sans-serif;
-    }
-
-    h1 {
-      text-align: center;
-      color: #1d3557;
-      font-size: 28px;
-      margin-bottom: 25px;
-    }
-
-    /* GRID MODERNO */
-    #lista {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
       padding: 0;
-      list-style: none;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: var(--light);
+      padding: 0;
+    }
+
+    .container {
       max-width: 1200px;
-      margin: auto;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
-    /* CARD BONITO */
-    .card {
-      background: white;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0px 5px 15px rgba(0,0,0,0.15);
-      transition: 0.2s;
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0px 10px 20px rgba(0,0,0,0.20);
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
-    .thumb {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
     }
 
-    .info {
-      padding: 15px;
+    .logo-icon {
+      font-size: 2.5rem;
     }
 
-    .categoria {
-      background: #e63946;
-      color: #fff;
-      padding: 4px 10px;
-      border-radius: 5px;
-      display: inline-block;
-      font-size: 13px;
-      margin-bottom: 10px;
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
     }
 
-    .titulo {
-      font-size: 18px;
+    .tagline {
+      font-size: 1rem;
+      font-weight: 300;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    /* Main Content */
+    main {
+      padding-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
       font-weight: 600;
-      color: #1d3557;
-      margin-bottom: 10px;
-      line-height: 1.3;
-      text-decoration: none;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background-color: var(--secondary);
+      border-radius: 3px;
+    }
+
+    /* Grid de Notícias */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Card de Notícia */
+    .news-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
       display: block;
     }
 
-    .titulo:hover {
-      text-decoration: underline;
+    .card-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
 
-    .botao {
+    .card-category {
       display: inline-block;
-      background: #1d3557;
-      color: white;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 14px;
+      background-color: var(--secondary);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+      color: var(--dark);
       text-decoration: none;
+      flex-grow: 1;
     }
 
-    .botao:hover {
-      background: #457b9d;
+    .card-title:hover {
+      color: var(--primary);
     }
 
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 500;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: var(--transition);
+      margin-top: auto;
+    }
+
+    .card-link:hover {
+      background-color: var(--primary-dark);
+    }
+
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Error State */
+    .error-message {
+      background-color: #ffebee;
+      color: #c62828;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-text {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .header-content {
+        padding: 0 1rem;
+      }
+      
+      .logo-text {
+        font-size: 1.5rem;
+      }
+      
+      .news-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .card-content {
+        padding: 1.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 15px;
+      }
+      
+      header {
+        padding: 1.5rem 0;
+      }
+      
+      .logo-text {
+        font-size: 1.3rem;
+      }
+      
+      .tagline {
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <span class="logo-icon">📰</span>
+          <h1 class="logo-text">Rondônia Ao Vivo</h1>
+        </div>
+        <p class="tagline">Fique por dentro das últimas notícias de Rondônia em tempo real</p>
+      </div>
+    </div>
+  </header>
 
-  <h1>📰 Últimas Notícias — Rondônia Ao Vivo</h1>
+  <main class="container">
+    <h2 class="section-title">Últimas Notícias</h2>
+    
+    <div id="lista">
+      <!-- Estado de carregamento -->
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Carregando notícias...</p>
+      </div>
+    </div>
+  </main>
 
-  <!-- IMPORTANTÍSSIMO: IDENTIFICADOR QUE SEU SCRIPT USA -->
-  <div id="lista"></div>
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <p class="footer-text">&copy; 2023 Rondônia Ao Vivo - Todas as notícias em um só lugar</p>
+      </div>
+    </div>
+  </footer>
 
-  <script src="script.js"></script>
+  <script>
+    async function carregarNoticias() {
+      const lista = document.getElementById("lista");
+      
+      try {
+        const req = await fetch("https://webscrapnoticiasrondoniaaovivo.onrender.com/noticias");
+        const data = await req.json();
 
+        // Limpar estado de carregamento
+        lista.innerHTML = "";
+
+        // Verificar se há notícias
+        if (!data.noticias || data.noticias.length === 0) {
+          lista.innerHTML = `
+            <div class="error-message">
+              <p>Nenhuma notícia encontrada no momento.</p>
+            </div>
+          `;
+          return;
+        }
+
+        // Adicionar notícias ao grid
+        data.noticias.forEach((n) => {
+          const card = document.createElement("div");
+          card.className = "news-card";
+          card.innerHTML = `
+            <img class="card-image" src="${n.imagem}" alt="${n.titulo}" onerror="this.src='https://via.placeholder.com/400x200/1d3557/ffffff?text=Imagem+Indisponível'">
+            <div class="card-content">
+              <span class="card-category">${n.categoria}</span>
+              <a class="card-title" href="${n.link}" target="_blank">${n.titulo}</a>
+              <a class="card-link" href="${n.link}" target="_blank">Ler notícia</a>
+            </div>
+          `;
+          lista.appendChild(card);
+        });
+
+      } catch (err) {
+        console.log("Erro:", err);
+        lista.innerHTML = `
+          <div class="error-message">
+            <p>Ocorreu um erro ao carregar as notícias. Tente novamente mais tarde.</p>
+          </div>
+        `;
+      }
+    }
+
+    // Carregar notícias quando a página carregar
+    document.addEventListener('DOMContentLoaded', carregarNoticias);
+  </script>
 </body>
 </html>
