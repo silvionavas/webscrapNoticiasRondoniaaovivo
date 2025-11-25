@@ -8,11 +8,14 @@ async function carregarNoticias() {
 
     data.noticias.forEach((n) => {
       lista.innerHTML += `
-        <li style="margin-bottom:20px;">
-          <img src="${n.imagem}" width="200" style="border-radius:4px;"><br>
-          <strong>${n.categoria}</strong><br>
-          <a href="${n.link}" target="_blank">${n.titulo}</a>
-        </li>
+        <div class="card">
+          <img class="thumb" src="${n.imagem}">
+          <div class="info">
+            <span class="categoria">${n.categoria}</span>
+            <a class="titulo" href="${n.link}" target="_blank">${n.titulo}</a>
+            <a class="botao" href="${n.link}" target="_blank">Ler notícia</a>
+          </div>
+        </div>
       `;
     });
 
