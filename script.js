@@ -1,30 +1,23 @@
 async function carregarNoticias() {
   try {
-    const r = await fetch("http://localhost:3000/noticias");
-    const data = await r.json();
+    const req = await fetch("https://webscrapnoticiasrondoniaaovivo.onrender.com/noticias");
+    const data = await req.json();
 
     const lista = document.getElementById("lista");
+    lista.innerHTML = "";
 
-    data.noticias.forEach(n => {
-      const card = document.createElement("div");
-      card.className = "card";
-
-      card.innerHTML = `
-        <img src="${n.imagem}" class="thumb">
-
-        <div class="info">
-          <span class="categoria">${n.categoria}</span>
-          <h2>${n.titulo}</h2>
-
-          <a href="${n.link}" target="_blank" class="botao">Ler notícia</a>
-        </div>
+    data.noticias.forEach((n) => {
+      lista.innerHTML += `
+        <li style="margin-bottom:20px;">
+          <img src="${n.imagem}" width="200" style="border-radius:4px;"><br>
+          <strong>${n.categoria}</strong><br>
+          <a href="${n.link}" target="_blank">${n.titulo}</a>
+        </li>
       `;
-
-      lista.appendChild(card);
     });
 
   } catch (err) {
-    console.error("Erro ao carregar:", err);
+    console.log("Erro:", err);
   }
 }
 

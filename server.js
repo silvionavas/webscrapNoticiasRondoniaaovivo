@@ -1,51 +1,54 @@
 const express = require("express");
 const cheerio = require("cheerio");
+const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const app = express();
 
+// Servir arquivos da pasta PUBLIC
+app.use(express.static("public"));
+
+// Liberação de acesso
 app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", "*");
   next();
 });
 
+// ROTA DE NOTÍCIAS
 app.get("/noticias", async (req, res) => {
   try {
-    const response = await fetch("https://www.rondoniaaovivo.com/ultimas");
+    const response = await fetch("https://www.rondoniaovivo.com/");
     const html = await response.text();
     const $ = cheerio.load(html);
 
     const noticias = [];
 
-    // Slider
+    // Pegando manchetes do slider
     $(".news-slide a").each((i, el) => {
       noticias.push({
-        categoria: $(el).find(".category-tag").text().trim(),
         titulo: $(el).find("p").text().trim(),
-        link: "https://www.rondoniaaovivo.com" + $(el).attr("href"),
-        imagem: "https://www.rondoniaaovivo.com" + $(el).find("img").attr("src")
+        categoria: $(el).find(".category-tag").text().trim(),
+        imagem: "https://www.rondoniaovivo.com" + $(el).find("img").attr("src"),
+        link: "https://www.rondoniaovivo.com" + $(el).attr("href"),
       });
     });
 
-    // Destaques
+    // Pegando quadradinhos do lado direito
     $(".news-destaques a").each((i, el) => {
       noticias.push({
-        categoria: $(el).find(".category-tag").text().trim(),
         titulo: $(el).find("p").text().trim(),
-        link: "https://www.rondoniaaovivo.com" + $(el).attr("href"),
-        imagem: "https://www.rondoniaaovivo.com" + $(el).find("img").attr("src")
+        categoria: $(el).find(".category-tag").text().trim(),
+        imagem: "https://www.rondoniaovivo.com" + $(el).find("img").attr("src"),
+        link: "https://www.rondoniaovivo.com" + $(el).attr("href"),
       });
     });
 
-    res.json({ noticias });
+    res.send({ noticias });
 
-  } catch (err) {
-    console.error("ERRO NO SCRAP:", err);
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
   }
 });
 
+// Porta Render
 const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log("Rodando na porta " + PORT);
-});
+app.listen(PORT, () => console.log("Rodando na porta " + PORT));

@@ -1,33 +1,29 @@
-📌 Web Scraping de Notícias — Node.js + Express + Cheerio
+📌 Web Scraping — Rondônia Ao Vivo
 
-Este projeto realiza web scraping no portal Rondônia Ao Vivo, coletando as últimas notícias da página inicial.
-Os dados são extraídos no servidor (Node.js) usando Cheerio, expostos via uma API REST e consumidos no front-end.
+API + Front-end usando Node.js, Express, Cheerio e Render
 
-✔ Web Scraping com Node.js
-✔ API própria em Express
-✔ Deploy no Render (backend)
-✔ Front-end estático (GitHub Pages)
-
-🚀 Funcionalidades
-
-Raspagem automática das notícias principais:
+Este projeto realiza Web Scraping no portal Rondônia ao Vivo, extraindo:
 
 título
-
-link
 
 imagem
 
 categoria
 
-API pública em:
+link
 
-/noticias
+Os dados são servidos como uma API REST JSON, e uma página front-end consome esses dados em tempo real.
 
+🚀 Demonstração
+🔹 API Online (Render)
 
-Front-end faz fetch() nessa API e exibe tudo em HTML.
+https://webscrapnoticiasrondoniaaovivo.onrender.com/noticias
 
-🧩 Tecnologias utilizadas
+🔹 Front-end (GitHub Pages ou local)
+
+Abra o arquivo public/index.html ou publique no GitHub Pages.
+
+🧩 Tecnologias usadas
 
 Node.js
 
@@ -37,92 +33,53 @@ Cheerio
 
 Cors
 
-Fetch API no front-end
+HTML / CSS / JS
 
-Render (backend)
+Render (Deploy do backend)
 
-GitHub Pages (frontend)
-
-📂 Estrutura do projeto
+📁 Estrutura
 /
-├── server.js          → Servidor + Web Scraping
+├── server.js
 ├── package.json
 ├── public/
-│   ├── index.html     → Front-end
-│   └── script.js      → Consumo da API
+│   ├── index.html
+│   └── script.js
 └── README.md
 
-🔧 Como rodar localmente
-1️⃣ Instalar dependências
+🛠 Instalação e uso local
 npm install
-
-2️⃣ Rodar o servidor
 node server.js
 
 
-O backend rodará em:
+A API ficará disponível em:
 
 http://localhost:3000/noticias
 
-3️⃣ Abrir o front-end
 
-Abra o arquivo:
+Abra:
 
 public/index.html
 
+☁️ Deploy no Render
 
-Ele vai fazer fetch() do backend local.
+Suba o projeto no GitHub
 
-☁️ Deploy no Render (Backend)
-
-Suba seu repositório no GitHub
-
-Acesse https://render.com
-
-Create New → Web Service
-
-Conecte seu repositório
+Crie Web Service no Render
 
 Configure:
 
 Campo	Valor
-Environment	Node
 Build Command	npm install
 Start Command	node server.js
 
-Certifique-se que seu código usa a porta do Render:
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT);
-
-
-Depois o Render vai gerar algo como:
+Pronto! A API ficará no link:
 
 https://seu-projeto.onrender.com/noticias
 
-🌐 Deploy no GitHub Pages (Frontend)
+🔗 Consumindo a API no front-end
 
-Coloque index.html + script.js dentro da pasta /public
+public/script.js:
 
-Suba no GitHub
-
-Vá em:
-Settings → Pages → Deploy from branch
-
-Escolha a pasta /public
-
-Sua página ficará assim:
-
-https://seuusuario.github.io/seu-projeto/
-
-🔗 Como conectar Frontend e Backend
-
-No script.js, altere a URL:
-
-const API_URL = "https://seu-projeto.onrender.com/noticias";
-
-async function carregarNoticias() {
-  const req = await fetch(API_URL);
-  const data = await req.json();
-  console.log(data);
-}
+fetch("https://webscrapnoticiasrondoniaaovivo.onrender.com/noticias")
+  .then(r => r.json())
+  .then(data => console.log(data));
