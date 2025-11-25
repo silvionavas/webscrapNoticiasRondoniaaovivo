@@ -1,6 +1,8 @@
 const express = require("express");
 const cheerio = require("cheerio");
-const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
+
+// Fetch nativo do Node
+const fetch = global.fetch;
 
 const app = express();
 
@@ -45,6 +47,7 @@ app.get("/noticias", async (req, res) => {
     res.send({ noticias });
 
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error: error.message });
   }
 });
