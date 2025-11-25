@@ -17,7 +17,7 @@ Os dados são servidos como uma API REST JSON, e uma página front-end consome e
 🚀 Demonstração
 🔹 API Online (Render)
 
-https://webscrapnoticiasrondoniaaovivo.onrender.com/noticias
+https://webscrapnoticiasrondoniaaovivo.onrender.com/
 
 🔹 Front-end (GitHub Pages ou local)
 
@@ -45,41 +45,3 @@ Render (Deploy do backend)
 │   ├── index.html
 │   └── script.js
 └── README.md
-
-🛠 Instalação e uso local
-npm install
-node server.js
-
-
-A API ficará disponível em:
-
-http://localhost:3000/noticias
-
-
-Abra:
-
-public/index.html
-
-☁️ Deploy no Render
-
-Suba o projeto no GitHub
-
-Crie Web Service no Render
-
-Configure:
-
-Campo	Valor
-Build Command	npm install
-Start Command	node server.js
-
-Pronto! A API ficará no link:
-
-https://seu-projeto.onrender.com/noticias
-
-🔗 Consumindo a API no front-end
-
-public/script.js:
-
-fetch("https://webscrapnoticiasrondoniaaovivo.onrender.com/noticias")
-  .then(r => r.json())
-  .then(data => console.log(data));
