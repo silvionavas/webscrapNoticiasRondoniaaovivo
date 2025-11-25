@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Scraping — Rondônia Ao Vivo</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #lista {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .card {
+      width: 320px;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      transition: transform .2s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .thumb {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .info {
+      padding: 15px;
+    }
+
+    .categoria {
+      display: inline-block;
+      padding: 4px 8px;
+      background: #e63946;
+      color: white;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 10px 0;
+      color: #333;
+      line-height: 1.3;
+    }
+
+    .botao {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: #1d3557;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+
+    .botao:hover {
+      background: #457b9d;
+    }
+  </style>
+
+</head>
+<body>
+
+  <h1>📰 Últimas Notícias — Rondônia Ao Vivo</h1>
+
+  <div id="lista"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
